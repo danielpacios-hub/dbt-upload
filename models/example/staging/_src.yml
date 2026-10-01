@@ -1,16 +1,14 @@
 sources:
-  - name: jaffle_shop
-    database: raw
-    schema: jaffle_shop
+  - name: tpch 
+    database: SNOWFLAKE_SAMPLE_DATA
+    schema: TPCH_SF1
     tables:
-      - name: customers 
-      - name: orders
-        config:
-          freshness:
-            warn_after:
-              count: 10
-              period: minute
-            error_after: 
-              count: 1
-              period: day
-          loaded_at_field: _etl_loaded_at
+      - name: CUSTOMER
+      - name: LINEITEM 
+      - name: NATION
+      - name: ORDERS
+      - name: PART 
+      - name: PARTSUPP
+      - name: REGION 
+      - name: SUPPLIER
+  
