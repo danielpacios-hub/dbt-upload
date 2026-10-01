@@ -1,4 +1,4 @@
 select 
     *
-from {{ source('tpch', 'CUSTOMER') }}
+from {{ source('tpch', 'PART') }}
 
