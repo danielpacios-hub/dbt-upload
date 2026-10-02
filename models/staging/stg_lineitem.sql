@@ -1,43 +1,46 @@
 {{
-    config( materialized='incremental')
-    }}
-with 
+    config(materialized='incremental')
+}}
 
-source as (
+with source as (
 
-    select * from {{ source('tpch', 'LINEITEM') }}
+    select *
+    from {{ source('tpch', 'LINEITEM') }}
 
-{%if is_incremental()%}
+    {% if is_incremental() %}
 
-    where L_RECEIPTDATE > 
-    (select max(L_RECEIPTDATE) from {{this}})
+        where L_RECEIPTDATE > (
+            select max(t.receiptdate)
+            from {{ this }} as t
+        )
 
-{% endif %}
+    {% endif %}
 
 ),
 
 renamed as (
 
     select
-        s.l_orderkey as orderkey,
-        s.l_partkey as partkey,
-        s.l_suppkey as suppkey,
-        s.l_linenumber as linenumber,
-        s.l_quantity as quantity,
-        s.l_extendedprice as extendedprice,
-        s.l_discount as discount,
-        s.l_tax as tax, 
-        s.l_returnflag as returnflag,
-        s.l_linestatus as linestatus,
-        s.l_shipdate as shipdate,
-        s.l_commitdate as commitdate,
-        s.l_receiptdate as receiptdate,
-        s.l_shipinstruct as shipinstruct,
-        s.l_shipmode as shipmode,
-        s.l_comment as comment
+        s.L_ORDERKEY as orderkey,
+        s.L_PARTKEY as partkey,
+        s.L_SUPPKEY as suppkey,
+        s.L_LINENUMBER as linenumber,
+        s.L_QUANTITY as quantity,
+        s.L_EXTENDEDPRICE as extendedprice,
+        s.L_DISCOUNT as discount,
+        s.L_TAX as tax,
+        s.L_RETURNFLAG as returnflag,
+        s.L_LINESTATUS as linestatus,
+        s.L_SHIPDATE as shipdate,
+        s.L_COMMITDATE as commitdate,
+        s.L_RECEIPTDATE as receiptdate,
+        s.L_SHIPINSTRUCT as shipinstruct,
+        s.L_SHIPMODE as shipmode,
+        s.L_COMMENT as comment
     from source as s
 
 )
 
-select * from renamed
+select *
+from renamed
 

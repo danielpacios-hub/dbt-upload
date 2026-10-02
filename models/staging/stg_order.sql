@@ -8,7 +8,7 @@ from {{ source('tpch', 'ORDERS') }}
 
 {%if is_incremental()%}
 where O_ORDERDATE > 
-    (select max(O_ORDERDATE) from {{this}})
+    (select max(t.ORDERDATE) from {{this}} as t)
 
 {% endif %}
 ),

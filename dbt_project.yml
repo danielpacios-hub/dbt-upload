@@ -28,9 +28,13 @@ models:
   dbt_project:
     +database: DEMO_DB
 
-    
+
     staging:
       +schema: STAGING
+      +materialized: table
+    
+    transform:
+      +schema: TRANSFORM
       +materialized: table
     
     
