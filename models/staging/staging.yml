@@ -1,0 +1,120 @@
+version: 2
+
+models:
+  - name: stg_customer
+    columns:
+      - name: custkey
+        data_tests:
+          - not_null
+          - unique
+
+      - name: nationkey
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_nation')
+                field: nationkey
+
+  - name: stg_lineitem
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - orderkey
+              - partkey
+              - suppkey
+              - linenumber
+    columns:
+      - name: orderkey
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_order')
+                field: orderkey
+
+      - name: suppkey
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_supp')
+                field: suppkey
+
+      - name: partkey
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_part')
+                field: partkey
+
+
+  - name: stg_nation
+    columns:
+      - name: nationkey
+        data_tests:
+          - not_null
+          - unique
+
+      - name: regionkey
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_region')
+                field: regionkey
+
+  - name: stg_order
+    columns:
+      - name: orderkey
+        data_tests:
+          - not_null
+          - unique
+
+      - name: custkey
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_customer')
+                field: custkey
+
+  - name: stg_part
+    columns:
+      - name: partkey
+        data_tests:
+          - not_null
+          - unique
+
+  - name: stg_partsupp
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - partkey
+              - suppkey
+    columns:
+      - name: partkey
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_part')
+                field: partkey
+
+  - name: stg_region
+    columns:
+      - name: regionkey
+        data_tests:
+          - not_null
+          - unique
+
+  - name: stg_supplier
+    columns:
+      - name: suppkey
+        data_tests:
+          - not_null
+          - unique
+
+      - name: nationkey
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_nation')
+                field: nationkey
+
