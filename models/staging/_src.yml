@@ -1,14 +1,34 @@
+version: 2
+
 sources:
-  - name: tpch 
+  - name: tpch
     database: SNOWFLAKE_SAMPLE_DATA
     schema: TPCH_SF1
     tables:
       - name: CUSTOMER
-      - name: LINEITEM 
+
+      - name: LINEITEM
+        config:
+          loaded_at_field: commitdate
+          freshness:
+            warn_after:
+              count: 1
+              period: day
+
       - name: NATION
+
       - name: ORDERS
-      - name: PART 
+        config:
+          loaded_at_field: orderdate
+          freshness:
+            warn_after:
+              count: 1
+              period: day
+
+      - name: PART
+
       - name: PARTSUPP
-      - name: REGION 
+
+      - name: REGION
+
       - name: SUPPLIER
-  

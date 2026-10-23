@@ -1,0 +1,85 @@
+version: 2
+
+models:
+  - name: fact_sales
+    description: >
+      Tabla de hechos de ventas basada en las líneas de pedido de TPCH_SF1.
+      Incluye información del pedido, producto, cliente, proveedor,
+      importes comerciales y claves de las fechas relevantes.
+
+    config:
+      meta:
+        owner: "Equipo de Data Engineering"
+        domain: "Ventas"
+        layer: "Business"
+        classification: "Internal"
+
+    columns:
+      - name: orderkey
+        description: >
+          Identificador del pedido al que pertenece la línea de venta.
+        data_tests:
+          - not_null
+
+      - name: linenumber
+        description: >
+          Número de línea dentro del pedido.
+        data_tests:
+          - not_null
+
+      - name: custkey
+        description: >
+          Clave natural del cliente asociada al pedido.
+
+      - name: partkey
+        description: >
+          Clave natural del producto vendido.
+
+      - name: suppkey
+        description: >
+          Clave natural del proveedor de la línea de pedido.
+
+      - name: order_date_key
+        description: >
+          Clave de dim_date correspondiente a la fecha del pedido.
+
+      - name: ship_date_key
+        description: >
+          Clave de dim_date correspondiente a la fecha de envío.
+
+      - name: commit_date_key
+        description: >
+          Clave de dim_date correspondiente a la fecha comprometida.
+
+      - name: receipt_date_key
+        description: >
+          Clave de dim_date correspondiente a la fecha de recepción.
+
+      - name: quantity
+        description: >
+          Cantidad vendida en la línea del pedido.
+
+      - name: extendedprice
+        description: >
+          Precio extendido de la línea antes de aplicar el descuento.
+
+      - name: tax
+        description: >
+          Importe o tasa de impuestos según la definición de trf_sales.
+
+      - name: discount_amount
+        description: >
+          Importe del descuento calculado en la capa Transform.
+
+      - name: net_amount
+        description: >
+          Importe neto calculado en la capa Transform según las reglas
+          de negocio del proyecto.
+
+      - name: unit_price
+        description: >
+          Precio unitario calculado para la línea de pedido.
+
+      - name: shipping_days
+        description: >
+          Número de días calculado para el proceso de envío.
