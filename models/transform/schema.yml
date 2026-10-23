@@ -1,0 +1,51 @@
+version: 2
+
+sources:
+  - name: tpch_sf1
+    description: >
+      Datos de muestra del benchmark TPC-H disponibles en Snowflake.
+      Constituyen las fuentes originales del proyecto analítico.
+    database: SNOWFLAKE_SAMPLE_DATA
+    schema: TPCH_SF1
+
+    tables:
+      - name: CUSTOMER
+        description: >
+          Clientes originales, incluyendo nombre, dirección,
+          país, teléfono, saldo y segmento de mercado.
+        columns:
+          - name: C_CUSTKEY
+            description: Clave natural única del cliente.
+          - name: C_MKTSEGMENT
+            description: Segmento de mercado del cliente.
+
+      - name: ORDERS
+        description: >
+          Cabecera de pedidos, con fechas, estado y datos de prioridad.
+        columns:
+          - name: O_ORDERKEY
+            description: Identificador natural del pedido.
+          - name: O_ORDERDATE
+            description: Fecha en la que se realizó el pedido.
+
+      - name: LINEITEM
+        description: >
+          Líneas de pedido con producto, proveedor, cantidad,
+          precios, descuentos, impuestos y fechas logísticas.
+        columns:
+          - name: L_ORDERKEY
+            description: Pedido al que pertenece la línea.
+          - name: L_LINENUMBER
+            description: Número de línea dentro del pedido.
+          - name: L_QUANTITY
+            description: Cantidad de producto de la línea.
+
+      - name: PART
+        description: >
+          Catálogo original de productos, con marca, tipo,
+          tamaño, envase y precio de venta.
+        columns:
+          - name: P_PARTKEY
+            description: Identificador natural del producto.
+          - name: P_RETAILPRICE
+            description: Precio de venta de referencia del producto.

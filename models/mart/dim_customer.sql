@@ -1,4 +1,10 @@
-{{config(materialized='table')}}
+{{config(
+    materialized='table',
+    grants={
+        'select': ['SYSADMIN']}
+    )
+
+}}
 select 
     c.custkey,
     c.name as customer_name,

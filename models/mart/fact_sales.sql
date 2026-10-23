@@ -1,5 +1,7 @@
 {{ config(
-    materialized='view'
+    materialized='view',
+    grants={
+        'select': ['SYSADMIN']}
 ) }}
 
 SELECT
