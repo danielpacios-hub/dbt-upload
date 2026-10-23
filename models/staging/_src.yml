@@ -9,7 +9,7 @@ sources:
 
       - name: LINEITEM
         config:
-          loaded_at_field: commitdate
+          loaded_at_field: l_commitdate
           freshness:
             warn_after:
               count: 1
@@ -19,7 +19,7 @@ sources:
 
       - name: ORDERS
         config:
-          loaded_at_field: orderdate
+          loaded_at_field: o_orderdate
           freshness:
             warn_after:
               count: 1
